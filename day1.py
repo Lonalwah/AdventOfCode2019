@@ -106,24 +106,19 @@ modulesMass = [
 ]
 
 def calculateFuel(mass):
-    return math.floor(mass/3)-2
+    fuel = math.floor(mass/3)-2
 
-def calculateShipFuel(mass):
-    total = calculateFuel(mass)
-    if total > 0:
-        total += calculateShipFuel(total)
-        
-    return max(total,0)
+    if fuel > 0:
+        fuel += calculateFuel(fuel)
 
-def calculateTotalFuel(modules):
+    return max(fuel, 0)
+
+def calculateShipFuel(modules):
     total = 0
 
     for i in modules:
-        #total += calculateFuel(i)
-        total += calculateShipFuel(i)
+        total += calculateFuel(i)
 
     return total
 
-#test = [100756]
-print(calculateTotalFuel(modulesMass))
-#print(calculateTotalFuel(test))
+print(calculateShipFuel(modulesMass))
